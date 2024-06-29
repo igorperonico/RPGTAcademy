@@ -1,3 +1,4 @@
+
 public class Mago extends Personagem {
     private int pontosMagia;
     /*Constructor*/
@@ -14,4 +15,16 @@ public class Mago extends Personagem {
     public void setPontosMagia(int pontosMagia) {
         this.pontosMagia = pontosMagia;
     }
+
+    /*Methods*/
+    @Override
+    public void atacar(Personagem alvo) {
+        int dano = this.forca + this.pontosMagia;
+        if (Math.random() < 0.2) { // 20% de chance de golpe crítico
+            dano *= 2;
+            System.out.println("Golpe Crítico!");
+        }
+        alvo.receberDano(dano);
+    }
+
 }

@@ -16,4 +16,15 @@ public class Guerreiro extends Personagem {
     public void setEspadadaJusticeira(int espadadaJusticeira) {
         this.espadadaJusticeira = espadadaJusticeira;
     }
+
+    @Override
+    public void atacar(Personagem alvo) {
+        int dano = this.forca + this.espadadaJusticeira;
+        if (Math.random() < 0.2) { // 20% de chance de golpe crítico
+            dano *= 2;
+            System.out.println("Golpe Crítico!");
+        }
+        alvo.receberDano(dano);
+    }
+
 }
