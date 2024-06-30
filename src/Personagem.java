@@ -7,6 +7,7 @@ public abstract class Personagem {
     protected int forca;
     protected int defesa;
     protected boolean isDefendendo;
+    protected List<Habilidade> habilidades;
     protected int experiencia;
     protected int nivel;
 
@@ -71,7 +72,10 @@ public abstract class Personagem {
         this.defesa -= 10;
     }
 
-    public void adicionarExp(int recompensaXP) {
+    public abstract void usarHabilidade(int indice, Personagem alvo);
+
+    /*Adiciona XP (esperiência) ao personagem, o que pode elevar o nível de poder do mesmo*/
+    public void adicionarXP(int recompensaXP) {
         this.experiencia += recompensaXP;
         if (this.experiencia >= this.nivel * 100) {
             this.nivel++;
@@ -84,11 +88,14 @@ public abstract class Personagem {
         }
     }
 
-    public void calcularDano(int dano) {
+    /*Calcula o dano recebido de acordo com a defesa do personagem*/
+    public void receberDano(int dano) {
         int danoRecebido = dano - this.defesa;
         this.vida -= (danoRecebido > 0) ? danoRecebido : 0;
         if (this.vida < 0) this.vida = 0;
     }
+
+
 
     /*Verificar se o personagem ainda está com pontos de vida*/
     public boolean isVivo() {

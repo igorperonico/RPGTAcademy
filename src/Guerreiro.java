@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Guerreiro extends Personagem {
     private int espadadaJusticeira;
 
@@ -5,6 +7,9 @@ public class Guerreiro extends Personagem {
     public Guerreiro(String nome, int vida, int forca, int defesa, int espadadaJusticeira) {
         super(nome, vida, forca, defesa);
         this.espadadaJusticeira = espadadaJusticeira;
+        this.habilidades = new ArrayList<>();
+        habilidades.add(new Habilidade("Fúria do Guerreiro", "Físico", 50));
+        habilidades.add(new Habilidade("Punho de Prata", "Físico", 10));
     }
 
     /*Getter and Setter*/
@@ -24,7 +29,21 @@ public class Guerreiro extends Personagem {
             dano *= 2;
             System.out.println("Golpe Crítico!");
         }
-        alvo.calcularDano(dano);
+        alvo.receberDano(dano);
+    }
+
+    @Override
+    public void usarHabilidade(int indice, Personagem alvo) {
+        Habilidade habilidade = habilidades.get(indice);
+        int dano = habilidade.getDanoBase();
+        /*O guerreiro usa sua fúria com combustível e acerta o inimigo em cheio, causando grande dano*/
+        if (habilidade.getNome().equals("Fúria do Guerreiro")) alvo.receberDano(dano);
+
+        /*O guerreiro desfere um golpe que adordoa o seu inimigo por dois turnos*/
+        else if (habilidade.getNome().equals("Punho de Prata")) {
+            alvo.receberDano(dano);
+            /*Atordoa alvo por dois turnos*/
+        }
     }
 
 }
