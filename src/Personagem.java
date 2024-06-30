@@ -58,10 +58,17 @@ public abstract class Personagem {
 
     /*Other Methods*/
 
+
     public abstract void atacar(Personagem inimigo);
 
     public void defender() {
+        this.isDefendendo = true;
         this.defesa += 10;
+    }
+
+    public void removerDefesa() {
+        this.isDefendendo = false;
+        this.defesa -= 10;
     }
 
     public void adicionarExp(int recompensaXP) {
@@ -77,12 +84,13 @@ public abstract class Personagem {
         }
     }
 
-    public void receberDano(int dano) {
+    public void calcularDano(int dano) {
         int danoRecebido = dano - this.defesa;
         this.vida -= (danoRecebido > 0) ? danoRecebido : 0;
         if (this.vida < 0) this.vida = 0;
     }
 
+    /*Verificar se o personagem ainda está com pontos de vida*/
     public boolean isVivo() {
         return this.vida > 0;
     }

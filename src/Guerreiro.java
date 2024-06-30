@@ -24,7 +24,7 @@ public class Guerreiro extends Personagem {
             dano *= 2;
             System.out.println("Golpe Crítico!");
         }
-        alvo.receberDano(dano);
+        alvo.calcularDano(dano);
     }
 
 }
