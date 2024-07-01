@@ -10,7 +10,7 @@ public class Arqueiro extends Personagem {
         this.destrezaComArco = destrezaComArco;
         this.habilidades = new ArrayList<>();
         habilidades.add(new Habilidade("Chuva de Flechas", "Físico", 40));
-        habilidades.add(new Habilidade("Tiro Flamejante", "Fogo", 15));
+        habilidades.add(new Habilidade("Tiro Flamejante", "Fogo", 20));
 
     }
 
@@ -45,12 +45,13 @@ public class Arqueiro extends Personagem {
         Habilidade habilidade = habilidades.get(indice);
         int dano = habilidade.getDanoBase();
         /*Ataque em que arqueiro dispara uma série de flechas que atingem o inimigo, causando dano a várias partes do seu corpo*/
-        if (habilidade.getNome().equals("Chuva de Flechas")) alvo.receberDano(dano);
+        if (habilidade.getNome().equals("Chuva de Flechas")) alvo.calcularDano(dano);
 
         /*Ataque em que o arqueiro dispara uma flecha com a ponta flamejante, o inimigo ficará queimado por mais dois turnos*/
         else if (habilidade.getNome().equals("Tiro Flamejante")) {
-            alvo.receberDano(dano);
+            alvo.calcularDano(dano);
             /*Queimar alvo por dois turnos*/
+            alvo.setQueimado(true);
         }
 
     }

@@ -28,29 +28,43 @@ public class Batalha {
         return personagens;
     }*/
 
-    public void iniciarBatalha() {
+    public void iniciarBatalha() throws InterruptedException {
         while (usuario.isVivo() && !inimigos.isEmpty()) {
 
             Inimigo inimigo = inimigos.get(0);
 
 
-            System.out.println("==============================");
-            System.out.println("     INICIO DA GAMEPLAY  ");
-            System.out.println("        NIVEL " + usuario.getNivel());
-            System.out.println("==============================");
+            System.out.println("========================================================");
+            System.out.println("                   INICIO DA GAMEPLAY  ");
+            System.out.println("                       NIVEL " + usuario.getNivel());
+            System.out.println("========================================================");
             while (usuario.isVivo() && inimigo.isVivo()) {
                 this.imprimirAtributos();
                 this.acaoUsuario();
-                inimigo.removerDefesa();
+                if (usuario.isFugir) break;
+
+                this.imprimirAtributos();
+                Thread.sleep(1000);
+
+                if (inimigo.isDefendendo) inimigo.removerDefesa();
                 if (inimigo.isVivo()) {
                     this.acaoInimigo();
-                    this.usuario.removerDefesa();
-                } else System.out.println(inimigo.getNome() + " foi derrotado!");
-            }
-            inimigos.remove(0);
-            System.out.println("==============================");
-            usuario.adicionarXP(inimigo.getRecompensaXP());
+                    if (usuario.isDefendendo) this.usuario.removerDefesa();
+                } else {
+                    System.out.println(inimigo.getNome() + " foi derrotado!");
+                    System.out.println("==============================");
+                    usuario.adicionarXP(inimigo.getRecompensaXP());
+                    inimigos.remove(0);
+                }
 
+            }
+            if (usuario.isFugir) break;
+
+        }
+        if (usuario.isVivo() && !usuario.isFugir) {
+            System.out.println("Você derrotou todos os inimigos!");
+        } else {
+            System.out.println("Você foi derrotado!");
         }
     }
 
@@ -59,7 +73,7 @@ public class Batalha {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escolha uma ação a ser realizada:");
-        System.out.println("1 - Atacar | 2 - Utilizar Habilidade Especial | 3 - Defender");
+        System.out.println("1 - Atacar | 2 - Utilizar Habilidade Especial | 3 - Defender | 4 - Fugir");
         int acao = scanner.nextInt();
 
         switch (acao) {
@@ -85,6 +99,10 @@ public class Batalha {
                 System.out.println(usuario.getNome() + " está em modo de defesa!");
 
                 break;
+            case 4:
+                usuario.setFugir(true);
+                System.out.println("Você fugiu do campo de batalha!");
+                break;
             default:
                 System.out.println("Opcao invalida!");
                 break;
@@ -104,7 +122,7 @@ public class Batalha {
             case 2:
                 int habilidadeEspecial = random.nextInt(2);
                 inimigo.usarHabilidade(habilidadeEspecial, usuario);
-                System.out.println(inimigo.getNome() + " utilizou a habilidade " + inimigo.habilidades.get(habilidadeEspecial - 1).getNome() + "!");
+                System.out.println(inimigo.getNome() + " utilizou a habilidade " + inimigo.habilidades.get(habilidadeEspecial).getNome() + "!");
                 break;
             case 3:
                 inimigo.defender();
@@ -115,9 +133,9 @@ public class Batalha {
 
     public void imprimirAtributos() {
         Inimigo inimigo = inimigos.get(0);
-        System.out.println("==============================");
-        System.out.println("Usuario: " + usuario.getNome() + " | Vida: " + usuario.getVida() + " | Defesa: " + usuario.getDefesa());
-        System.out.println("Inimigo: " + inimigo.getNome() + " | Vida: " + inimigo.getVida() + " | Defesa: " + inimigo.getDefesa());
-        System.out.println("==============================");
+        System.out.println("========================================================");
+        System.out.println("Usuario: " + usuario.getNome() + " | Vida: " + usuario.getVida() + " | Forca: " + usuario.getForca() + " | Defesa: " + usuario.getDefesa());
+        System.out.println("Inimigo: " + inimigo.getNome() + " | Vida: " + inimigo.getVida() + " | Forca: " + inimigo.getForca() + " | Defesa: " + inimigo.getDefesa());
+        System.out.println("========================================================");
     }
 }

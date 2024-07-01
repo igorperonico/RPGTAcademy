@@ -10,6 +10,11 @@ public abstract class Personagem {
     protected List<Habilidade> habilidades;
     protected int experiencia;
     protected int nivel;
+    protected boolean isEnvenenado;
+    protected boolean isAtordoado;
+    protected boolean isQueimado;
+    protected boolean isDormindo;
+    protected boolean isFugir;
 
 
     /*Constructor*/
@@ -22,6 +27,11 @@ public abstract class Personagem {
         this.experiencia = 0;
         this.nivel = 1;
         this.isDefendendo = false;
+        this.isEnvenenado = false;
+        this.isAtordoado = false;
+        this.isQueimado = false;
+        this.isDormindo = false;
+        this.isFugir = false;
     }
     /*Getter and Setters*/
 
@@ -97,6 +107,46 @@ public abstract class Personagem {
         this.nivel = nivel;
     }
 
+    public boolean isEnvenenado() {
+        return isEnvenenado;
+    }
+
+    public void setEnvenenado(boolean envenenado) {
+        isEnvenenado = envenenado;
+    }
+
+    public boolean isAtordoado() {
+        return isAtordoado;
+    }
+
+    public void setAtordoado(boolean atordoado) {
+        isAtordoado = atordoado;
+    }
+
+    public boolean isQueimado() {
+        return isQueimado;
+    }
+
+    public void setQueimado(boolean queimado) {
+        isQueimado = queimado;
+    }
+
+    public boolean isDormindo() {
+        return isDormindo;
+    }
+
+    public void setDormindo(boolean dormindo) {
+        isDormindo = dormindo;
+    }
+
+    public boolean isFugir() {
+        return isFugir;
+    }
+
+    public void setFugir(boolean fugir) {
+        isFugir = fugir;
+    }
+
     /*Other Methods*/
 
 
@@ -104,15 +154,16 @@ public abstract class Personagem {
 
     public void defender() {
         this.isDefendendo = true;
-        this.defesa += defesa;
+        this.defesa *= 2;
     }
 
     public void removerDefesa() {
         this.isDefendendo = false;
-        this.defesa -= defesa;
+        this.defesa /= 2;
     }
 
     public abstract void usarHabilidade(int indice, Personagem alvo);
+
 
     /*Adiciona XP (esperiência) ao personagem, o que pode elevar o nível de poder do mesmo*/
     public void adicionarXP(int recompensaXP) {
@@ -121,10 +172,10 @@ public abstract class Personagem {
             this.nivel++;
             this.experiencia = 0;
             // Aumentar atributos ao subir de nível
-            this.vidaMaxima += 50;
+            this.vidaMaxima += 30;
             this.vida = this.vidaMaxima;
-            this.forca += 20;
-            this.defesa += 20;
+            this.forca += 25;
+            this.defesa += 10;
         }
     }
 
@@ -135,6 +186,11 @@ public abstract class Personagem {
         if (this.vida < 0) this.vida = 0;
     }
 
+    /*Calcular o dano recebido após uso de habilidaade especial, o adversário não consegue utilizar  defesa*/
+    public void calcularDano(int dano) {
+        this.vida -= dano;
+        if (this.vida < 0) this.vida = 0;
+    }
 
 
     /*Verificar se o personagem ainda está com pontos de vida*/

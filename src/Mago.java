@@ -38,14 +38,16 @@ public class Mago extends Personagem {
         int dano = habilidade.getDanoBase();
         /*Cria um escudo mágico que reduz o dano recebido pelo Mago em 80% por 3 turnos*/
         if (habilidade.getNome().equals("Escudo Mágico")) {
-            alvo.receberDano(dano);
+            alvo.calcularDano(dano);
             /*Escudo mágico reduz o dano recebido em 80% por 3 turnos*/
+
 
         }
         /*O mago hipnotisa o inimigo e ele fico inoperante por 3 turnos*/
         else if (habilidade.getNome().equals("Hipnose")) {
-            alvo.receberDano(dano);
+            alvo.calcularDano(dano);
             /*Alvo dorme por 3 turnos*/
+            alvo.setDormindo(true);
         }
     }
 }

@@ -9,7 +9,7 @@ public class Guerreiro extends Personagem {
         this.espadadaJusticeira = espadadaJusticeira;
         this.habilidades = new ArrayList<>();
         habilidades.add(new Habilidade("Fúria do Guerreiro", "Físico", 50));
-        habilidades.add(new Habilidade("Punho de Prata", "Físico", 10));
+        habilidades.add(new Habilidade("Punho de Prata", "Físico", 25));
     }
 
     /*Getter and Setter*/
@@ -37,12 +37,14 @@ public class Guerreiro extends Personagem {
         Habilidade habilidade = habilidades.get(indice);
         int dano = habilidade.getDanoBase();
         /*O guerreiro usa sua fúria com combustível e acerta o inimigo em cheio, causando grande dano*/
-        if (habilidade.getNome().equals("Fúria do Guerreiro")) alvo.receberDano(dano);
+        if (habilidade.getNome().equals("Fúria do Guerreiro")) alvo.calcularDano(dano);
 
-        /*O guerreiro desfere um golpe que adordoa o seu inimigo por dois turnos*/
+        /*O guerreiro desfere um golpe que adordoa o seu inimigo por 1 turno*/
         else if (habilidade.getNome().equals("Punho de Prata")) {
-            alvo.receberDano(dano);
-            /*Atordoa alvo por dois turnos*/
+            alvo.calcularDano(dano);
+            /*Atordoa alvo por 1 turno*/
+            alvo.setAtordoado(true);
+
         }
     }
 
