@@ -1,10 +1,22 @@
 import java.util.ArrayList;
 
+/**
+ * Represents an enemy character in the game.
+ */
 public class Inimigo extends Personagem {
     private int recompensaXP;
     private String tipo;
 
-    /*Constructor*/
+    /**
+     * Constructor for the Inimigo class.
+     *
+     * @param nome         The name of the enemy.
+     * @param vida         The initial health points of the enemy.
+     * @param forca        The strength of the enemy.
+     * @param defesa       The defense of the enemy.
+     * @param recompensaXP The experience points the player will receive after defeating this enemy.
+     * @param tipo         The type of the enemy (e.g., Monstro, Comandante).
+     */
     public Inimigo(String nome, int vida, int forca, int defesa, int recompensaXP, String tipo) {
         super(nome, vida, forca, defesa);
         this.recompensaXP = recompensaXP;
@@ -24,22 +36,48 @@ public class Inimigo extends Personagem {
 
     /*Getter and Setter*/
 
+    /**
+     * Returns the experience points the player will receive after defeating this enemy.
+     *
+     * @return The experience points.
+     */
     public int getRecompensaXP() {
         return recompensaXP;
     }
 
+    /**
+     * Sets the experience points the player will receive after defeating this enemy.
+     *
+     * @param recompensaXP The experience points.
+     */
     public void setRecompensaXP(int recompensaXP) {
         this.recompensaXP = recompensaXP;
     }
 
+    /**
+     * Returns the type of the enemy (e.g., Monstro, Comandante).
+     *
+     * @return The type of the enemy.
+     */
     public String getTipo() {
         return tipo;
     }
 
+    /**
+     * Sets the type of the enemy (e.g., Monstro, Comandante, Chefao).
+     *
+     * @param tipo The type of the enemy.
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
+    /**
+     * The enemy attacks the target character.
+     * If a critical hit occurs (20% chance), the damage is doubled.
+     *
+     * @param alvo The target character.
+     */
     @Override
     public void atacar(Personagem alvo) {
         int dano = this.forca;
@@ -50,6 +88,12 @@ public class Inimigo extends Personagem {
         alvo.receberDano(dano);
     }
 
+    /**
+     * The enemy uses a skill on the target character.
+     *
+     * @param indice The index of the skill in the list of skills.
+     * @param alvo   The target character.
+     */
     @Override
     public void usarHabilidade(int indice, Personagem alvo) {
         Habilidade habilidade = habilidades.get(indice);
@@ -69,6 +113,5 @@ public class Inimigo extends Personagem {
         }
 
     }
-
 
 }

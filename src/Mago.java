@@ -1,9 +1,21 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a Mago character in the game.
+ * Extends the Personagem class.
+ */
 public class Mago extends Personagem {
     private int pontosMagia;
 
-    /*Constructor*/
+    /**
+     * Constructor for Mago class.
+     *
+     * @param nome        The name of the Mago.
+     * @param vida        The initial vida of the Mago.
+     * @param forca       The initial forca of the Mago.
+     * @param defesa      The initial defesa of the Mago.
+     * @param pontosMagia The initial magical points of the Mago.
+     */
     public Mago(String nome, int vida, int forca, int defesa, int pontosMagia) {
         super(nome, vida, forca, defesa);
         this.pontosMagia = pontosMagia;
@@ -13,15 +25,32 @@ public class Mago extends Personagem {
     }
     /*Getter and Setter*/
 
+    /**
+     * Getter for pontosMagia.
+     *
+     * @return The magical points of the Mago.
+     */
     public int getPontosMagia() {
         return pontosMagia;
     }
 
+    /**
+     * Setter for pontosMagia.
+     *
+     * @param pontosMagia The new magical points of the Mago.
+     */
     public void setPontosMagia(int pontosMagia) {
         this.pontosMagia = pontosMagia;
     }
 
-    /*Methods*/
+
+    /**
+     * Overrides the atacar method from the Personagem class.
+     * The Mago attacks the target with a dano equal to its forca plus its magical points.
+     * There is a 20% chance of a critical hit, which doubles the dano.
+     *
+     * @param alvo The target of the attack.
+     */
     @Override
     public void atacar(Personagem alvo) {
         int dano = this.forca + this.pontosMagia;
@@ -32,6 +61,13 @@ public class Mago extends Personagem {
         alvo.receberDano(dano);
     }
 
+    /**
+     * Overrides the usarHabilidade method from the Personagem class.
+     * The Mago uses a skill based on the index provided.
+     *
+     * @param indice The index of the skill to be used.
+     * @param alvo The target of the skill.
+     */
     @Override
     public void usarHabilidade(int indice, Personagem alvo) {
         Habilidade habilidade = habilidades.get(indice);

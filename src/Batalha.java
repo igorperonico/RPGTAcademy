@@ -1,33 +1,30 @@
-import java.sql.SQLOutput;
+
 import java.util.*;
 
+/**
+ * Represents a battle system between a player and multiple enemies.
+ */
 public class Batalha {
 
     private Personagem usuario;
     private ArrayList<Inimigo> inimigos;
 
+    /**
+     * Constructs a new battle instance.
+     *
+     * @param usuario  The player character in the battle.
+     * @param inimigos The list of enemies in the battle.
+     */
     public Batalha(Personagem usuario, ArrayList<Inimigo> inimigos) {
         this.usuario = usuario;
         this.inimigos = inimigos;
     }
 
-    /*Método para determinar a ordem dos turnos.*/
-    /*public List<Personagem> ordemTurno(Personagem inimigo) {
-        List<Personagem> personagens = new ArrayList<>();
-        personagens.add(usuario);
-        personagens.add(inimigo);
-
-        *//*A ordem será escolhida de acordo com a força do personagem*//*
-        Collections.sort(personagens, new Comparator<Personagem>() {
-            @Override
-            public int compare(Personagem p1, Personagem p2) {
-                return Integer.compare(p2.getForca(), p1.getForca());
-            }
-        });
-
-        return personagens;
-    }*/
-
+    /**
+     * Starts the battle between the player and enemies.
+     *
+     * @throws InterruptedException If the thread is interrupted during the battle.
+     */
     public void iniciarBatalha() throws InterruptedException {
         while (usuario.isVivo() && !inimigos.isEmpty()) {
 
@@ -52,7 +49,7 @@ public class Batalha {
                     if (usuario.isDefendendo) this.usuario.removerDefesa();
                 } else {
                     System.out.println(inimigo.getNome() + " foi derrotado!");
-                    System.out.println("==============================");
+                    System.out.println("========================================================");
                     usuario.adicionarXP(inimigo.getRecompensaXP());
                     inimigos.remove(0);
                 }
@@ -68,6 +65,11 @@ public class Batalha {
         }
     }
 
+    /**
+     * This method handles the player's actions during the battle.
+     * It prompts the player to choose an action (attack, use special skill, defend, or flee)
+     * and performs the corresponding action.
+     */
     public void acaoUsuario() {
         Inimigo inimigo = inimigos.get(0);
 
@@ -109,6 +111,11 @@ public class Batalha {
         }
     }
 
+    /**
+     * This method handles the enemy's actions during the battle.
+     * It randomly selects an action (attack, use special skill, or defend)
+     * and performs the corresponding action.
+     */
     public void acaoInimigo() {
         Inimigo inimigo = inimigos.get(0);
         Random random = new Random();
@@ -131,6 +138,10 @@ public class Batalha {
         }
     }
 
+    /**
+     * Prints the current attributes of the player and the first enemy in the battle.
+     * This method is used to display the status of both characters during the battle.
+     */
     public void imprimirAtributos() {
         Inimigo inimigo = inimigos.get(0);
         System.out.println("========================================================");

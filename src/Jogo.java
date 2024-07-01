@@ -1,14 +1,25 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This is the main class for the game. It manages the game state, characters, and battles.
+ */
 public class Jogo {
     private Personagem usuario;
     private ArrayList<Inimigo> inimigos;
 
+    /**
+     * Constructor for the Jogo class. Initializes the list of enemies.
+     */
     public Jogo() {
         this.inimigos = new ArrayList<>();
     }
 
+    /**
+     * This method is used to retrieve the user character object.
+     *
+     * @return Personagem The user character object.
+     */
     public Personagem getUsuario() {
         return usuario;
     }
@@ -21,12 +32,28 @@ public class Jogo {
         return inimigos;
     }
 
+    /**
+     * This method is used to set up the initial list of enemies for the game.
+     * It clears the existing list of enemies and adds new enemies to the list.
+     *
+     * @return void This method does not return any value.
+     */
     public void setInimigos() {
+        // Clear the existing list of enemies
+        inimigos.clear();
+
+        // Add new enemies to the list
         inimigos.add(new Inimigo("Baraka", 75, 45, 15, 100, "Monstro"));
         inimigos.add(new Inimigo("Shang Tsung", 150, 60, 30, 200, "Comandante"));
         inimigos.add(new Inimigo("Shao Kahn", 250, 90, 45, 300, "Chefao"));
     }
 
+    /**
+     * This method is used to start the game. It sets up the initial game state,
+     * including choosing a character and initiating the first battle.
+     *
+     * @throws InterruptedException This method may throw InterruptedException if the thread is interrupted while waiting for input.
+     */
     public void iniciarJogo() throws InterruptedException {
         setInimigos();
         System.out.println("Ola, aventureiro! Escolha o personagem que deseja jogar!");
@@ -56,6 +83,13 @@ public class Jogo {
         this.desejaContinuar();
     }
 
+    /**
+     * This method is used to ask the player if they want to continue playing the game.
+     * If the player chooses to continue, the game will start again.
+     * If the player chooses not to continue, the game will end.
+     *
+     * @throws InterruptedException This method may throw InterruptedException if the thread is interrupted while waiting for input.
+     */
     public void desejaContinuar() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Deseja jogar novamente? (S/N)");

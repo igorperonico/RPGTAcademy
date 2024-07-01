@@ -1,5 +1,9 @@
 import java.util.List;
 
+/**
+ * Abstract class representing a character in the game.
+ * It contains common attributes and methods for all characters.
+ */
 public abstract class Personagem {
     protected String nome;
     protected int vida;
@@ -17,7 +21,14 @@ public abstract class Personagem {
     protected boolean isFugir;
 
 
-    /*Constructor*/
+    /**
+     * Constructor for the Personagem class.
+     *
+     * @param nome   the name of the character
+     * @param vida   the initial health points of the character
+     * @param forca  the strength of the character
+     * @param defesa the defense of the character
+     */
     public Personagem(String nome, int vida, int forca, int defesa) {
         this.nome = nome;
         this.vida = vida;
@@ -149,9 +160,17 @@ public abstract class Personagem {
 
     /*Other Methods*/
 
-
+    /**
+     * Abstract method for the character to attack another character.
+     *
+     * @param inimigo the character being attacked
+     */
     public abstract void atacar(Personagem inimigo);
 
+    /**
+     * Method for the character to defend itself.
+     * The defense is doubled during defense.
+     */
     public void defender() {
         this.isDefendendo = true;
         this.defesa *= 2;
@@ -162,10 +181,20 @@ public abstract class Personagem {
         this.defesa /= 2;
     }
 
+    /**
+     * Method for the character to use a skill on another character.
+     *
+     * @param indice the index of the skill in the list of skills
+     * @param alvo   the character being targeted by the skill
+     */
     public abstract void usarHabilidade(int indice, Personagem alvo);
 
-
-    /*Adiciona XP (esperiência) ao personagem, o que pode elevar o nível de poder do mesmo*/
+    /**
+     * Method for the character to gain experience points.
+     * If the experience points reach a certain threshold, the character's level increases.
+     *
+     * @param recompensaXP the experience points gained
+     */
     public void adicionarXP(int recompensaXP) {
         this.experiencia += recompensaXP;
         if (this.experiencia >= this.nivel * 100) {
@@ -179,21 +208,37 @@ public abstract class Personagem {
         }
     }
 
-    /*Calcula o dano recebido de acordo com a defesa do personagem*/
+    /**
+     * Method for the character to receive damage.
+     * The damage is reduced by the character's defense.
+     *
+     * @param dano the amount of damage received
+     */
     public void receberDano(int dano) {
         int danoRecebido = dano - this.defesa;
         this.vida -= (danoRecebido > 0) ? danoRecebido : 0;
         if (this.vida < 0) this.vida = 0;
     }
 
-    /*Calcular o dano recebido após uso de habilidaade especial, o adversário não consegue utilizar  defesa*/
+    /**
+     * Method for calculating the damage received after using a special skill.
+     * In this method, the enemy cannot use defense.
+     *
+     * @param dano the amount of damage to be subtracted from the character's health points
+     * @return void
+     * @since 1.0
+     */
     public void calcularDano(int dano) {
         this.vida -= dano;
         if (this.vida < 0) this.vida = 0;
     }
 
 
-    /*Verificar se o personagem ainda está com pontos de vida*/
+    /**
+     * Method to check if the character is still alive.
+     *
+     * @return true if the character has more than 0 health points, false otherwise
+     */
     public boolean isVivo() {
         return this.vida > 0;
     }
