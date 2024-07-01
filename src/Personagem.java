@@ -57,6 +57,46 @@ public abstract class Personagem {
         this.defesa = defesa;
     }
 
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
+
+    public void setVidaMaxima(int vidaMaxima) {
+        this.vidaMaxima = vidaMaxima;
+    }
+
+    public boolean isDefendendo() {
+        return isDefendendo;
+    }
+
+    public void setDefendendo(boolean defendendo) {
+        isDefendendo = defendendo;
+    }
+
+    public List<Habilidade> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(List<Habilidade> habilidades) {
+        this.habilidades = habilidades;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(int experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
     /*Other Methods*/
 
 
@@ -64,12 +104,12 @@ public abstract class Personagem {
 
     public void defender() {
         this.isDefendendo = true;
-        this.defesa += 10;
+        this.defesa += defesa;
     }
 
     public void removerDefesa() {
         this.isDefendendo = false;
-        this.defesa -= 10;
+        this.defesa -= defesa;
     }
 
     public abstract void usarHabilidade(int indice, Personagem alvo);
@@ -81,10 +121,10 @@ public abstract class Personagem {
             this.nivel++;
             this.experiencia = 0;
             // Aumentar atributos ao subir de nível
-            this.vidaMaxima += 10;
+            this.vidaMaxima += 50;
             this.vida = this.vidaMaxima;
-            this.forca += 2;
-            this.defesa += 2;
+            this.forca += 20;
+            this.defesa += 20;
         }
     }
 
